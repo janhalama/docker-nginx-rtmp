@@ -153,6 +153,7 @@ RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
 EXPOSE 1935
+ENV PORT 8080
 EXPOSE ${PORT}
 
 ADD scripts/docker-entrypoint.sh /docker-entrypoint.sh
