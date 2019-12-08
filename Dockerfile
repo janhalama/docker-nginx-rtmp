@@ -147,11 +147,17 @@ COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
 # Add NGINX path, config and static files.
 ENV PATH "${PATH}:/usr/local/nginx/sbin"
-ADD nginx.conf /etc/nginx/nginx.conf
+ADD nginx.template.conf /etc/nginx/nginx.template.conf
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
+ENV PORT 80
+
+
 EXPOSE 1935
-EXPOSE 80
+EXPOSE ${PORT}
+
+ADD scripts/docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 CMD ["nginx"]
