@@ -139,7 +139,8 @@ RUN apk add --update \
   opus \
   rtmpdump \
   x264-dev \
-  x265-dev
+  x265-dev \
+  gettext
 
 COPY --from=build-nginx /usr/local/nginx /usr/local/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
@@ -150,9 +151,6 @@ ENV PATH "${PATH}:/usr/local/nginx/sbin"
 ADD nginx.template.conf /etc/nginx/nginx.template.conf
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
-
-ENV PORT 80
-
 
 EXPOSE 1935
 EXPOSE ${PORT}
